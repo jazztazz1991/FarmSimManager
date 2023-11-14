@@ -20,7 +20,7 @@ MongoDB
 Installation Steps
 Clone the repository:
 Bash
-git clone https://github.com/your-username/FarmSimManager.git
+https://github.com/jazztazz1991/FarmSimManager.git
 Use code with caution. Learn more
 Install the dependencies:
 Bash
