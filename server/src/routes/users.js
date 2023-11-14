@@ -6,15 +6,41 @@ import { UserModel } from '../models/Users.js'
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
-    // const { username, password } = req.body;
+    const { username, password } = req.body;
 
-    const username = req.body.username;
-    console.log("this is before user " + username);
-    const user = await UserModel.findOne({ username: username });
-    console.log("this is the user in the user route " + user)
-    res.json(user);
+    const user = await UserModel.findOne({ username });
+
+    if (user) {
+        return res.json({ message: "User already exists!" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = new UserModel({
+        username,
+        password: hashedPassword
+    })
+    await newUser.save();
+
+    res.json({ message: "User Registered Successfully!" });
 });
 
-router.post("/login");
+router.post("/login", async (req, res) => {
+    const { username, password } = req.body;
+    const user = await UserModel.findOne({ username });
+
+    if (!user) {
+        return res.json({ message: "User Doesnt Exist!" });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+        return res.json({ message: "Username or Password is incorrect!" });
+    }
+
+    const token = jwt.sign({ id: user._id }, "secret");
+
+});
 
 export { router as userRouter };
