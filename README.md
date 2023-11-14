@@ -40,8 +40,6 @@ Add fields, crops, and animals to your farm.
 Track your finances.
 Set goals and track your progress.
 Share your farm with others.
-Contributing
-We encourage you to contribute to FarmSimManager. Please read our contributing guidelines: CONTRIBUTING.md for more information.
 
 License
 FarmSimManager is licensed under the MIT License.
