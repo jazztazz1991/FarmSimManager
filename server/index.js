@@ -10,7 +10,7 @@ app.use(cors());
 
 app.use("/auth", userRouter)
 
-mongoose.connect("mongodb+srv://lanugginoso:helloworld@farmsim.zpw2zwz.mongodb.net/?retryWrites=true&w=majority");
+mongoose.connect("mongodb+srv://lanugginoso:helloworld@farmsim.zpw2zwz.mongodb.net/FarmSim?retryWrites=true&w=majority");
 
 app.listen(3001, () => console.log("SERVER STARTED!"));
 
