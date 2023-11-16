@@ -1,7 +1,9 @@
 import express from 'express';
+import dotenv from 'dotenv';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import { userRouter } from './src/routes/users.js';
+dotenv.config();
 
 const app = express();
 
@@ -9,7 +11,10 @@ app.use(express.json()); //sets all data given from the front end in the form of
 app.use(cors());
 
 app.use("/auth", userRouter)
-mongoose.connect(process.env.DB_LINK || 'mongodb+srv://lanugginoso:helloworld@farmsim.zpw2zwz.mongodb.net/FarmSim?retryWrites=true&w=majority');
+mongoose.connect(process.env.DB_LINK);
 
-app.listen(3001, () => console.log("SERVER STARTED!"));
+if (process.env.port) {
+    app.listen(process.env.PORT, () => console.log("SERVER STARTED!"));
+}
+
 
