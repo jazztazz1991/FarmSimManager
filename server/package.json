@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start": "node server/index.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install npm && run build"
   },
   "author": "",
   "license": "ISC",
@@ -20,5 +22,8 @@
   },
   "devDependencies": {
     "nodemon": "^1.19.4"
+  },
+  "engines": {
+    "node": "20.9.0"
   }
 }
