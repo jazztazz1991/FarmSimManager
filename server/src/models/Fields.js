@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const FieldSchema = new mongoose.Schema({
     userOwner: { type: mongoose.Schema.Types.ObjectId, ref: 'users', required: true },
-    fieldNumber: { type: String, required: true, unique: true },
+    fieldNumber: { type: Number, required: true, unique: true },
     acres: { type: Number, required: true },
     cropType: { type: String, required: true },
     plowed: { type: Boolean, required: true },
@@ -15,7 +15,7 @@ const FieldSchema = new mongoose.Schema({
     perLoam: { type: Number, required: true },
     perSandyLoam: { type: Number, required: true },
     perLoamySand: { type: Number, required: true },
-    perSiltyClay: { type: Number, required: true },
+    perSiltyClay: { type: Number, required: true }
 });
 
 export const FieldModel = mongoose.model("fields", FieldSchema);
