@@ -6,4 +6,4 @@ const FieldSchema = new mongoose.Schema({
     yieldPotential: { type: Number, required: true }
 });
 
-export const FieldModel = mongoose.model("fields", FieldSchema);
+export const FieldModel = mongoose.model("midwestHorizon", FieldSchema);
