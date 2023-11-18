@@ -62,30 +62,6 @@ export const Home = () => {
                             <p>
                                 Yield Potential: <span>{field.yieldPotential}</span>
                             </p>
-                            {/* <p>
-                                Crop Type: <span>{field.cropType}</span>
-                            </p>
-                            <p>
-                                Plowed: <span>{field.plowed}</span>
-                            </p>
-                            <p>
-                                Cultivated: <span>{field.cultivated}</span>
-                            </p>
-                            <p>
-                                Limed: <span>{field.limed}</span>
-                            </p>
-                            <p>
-                                Fertilized: <span>{field.fertilized}</span>
-                            </p>
-                            <p>
-                                Weeded: <span>{field.herbicide}</span>
-                            </p>
-                            <p>
-                                Mulched: <span>{field.mulched}</span>
-                            </p>
-                            <p>
-                                Rolled: <span>{field.rolled}</span>
-                            </p>*/}
                         </div>
                     </li>
                 ))}
