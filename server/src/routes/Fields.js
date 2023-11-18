@@ -24,5 +24,40 @@ router.post("/", async (req, res) => {
     }
 });
 
+router.put("/", async (req, res) => {
+
+    try {
+        const field = await FieldModel.findById(req.body.fieldID);
+        const user = await UserModel.findById(req.body.userID);
+
+        user.savedFields.push(field);
+        await user.save();
+        res.json({ savedFields: user.savedFields });
+    } catch (err) {
+        res.json(err)
+    }
+});
+
+router.get("/savedFields/ids", async (req, res) => {
+    try {
+        const user = await UserModel.findById(req.body.userID);
+        res.json({ savedFields: user?.savedFields });
+    } catch (err) {
+        res.json(err)
+    }
+});
+
+router.get("/savedFields", async (req, res) => {
+    try {
+        const user = await UserModel.findById(req.body.userID);
+        const savedFields = await FieldModel.find({
+            _id: { $in: user.savedFields }
+        });
+        res.json({ savedFields });
+    } catch (err) {
+        res.json(err)
+    }
+});
+
 export { router as fieldsRouter };
 
