@@ -18,7 +18,7 @@ app.use("/fields", fieldsRouter);
 
 mongoose.connect(process.env.DB_LINK);
 
-if (process.env.port) {
+if (process.env.PORT) {
     app.listen(process.env.PORT, () => console.log("SERVER STARTED!"));
 }
 
