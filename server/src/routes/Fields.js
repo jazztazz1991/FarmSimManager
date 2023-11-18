@@ -1,7 +1,7 @@
 import express from 'express';
 import { FieldModel } from '../models/Fields.js';
 import { UserModel } from '../models/Users.js';
-import { verifyToken } from './Users.js';
+import { verifyToken } from './users.js';
 
 
 const router = express.Router();
