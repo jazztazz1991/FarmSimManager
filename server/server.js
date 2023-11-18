@@ -16,6 +16,10 @@ app.use(cors());
 app.use("/auth", userRouter);
 app.use("/fields", fieldsRouter);
 
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/'));
+})
+
 mongoose.connect(process.env.DB_LINK);
 
 if (process.env.PORT) {
