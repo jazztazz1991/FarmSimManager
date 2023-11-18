@@ -16,14 +16,12 @@ export const Fields = () => {
             try {
                 const response = await axios.get(`http://localhost:3001/fields/savedFields/${userID}`, { headers: { authorizations: cookies.access_token } });
                 setSavedFields(response.data.savedFields);
-                console.log(response.data.savedFields);
             } catch (err) {
                 console.error(err)
             }
         };
         fetchSavedFields();
     }, []);
-
 
     return (
         <div className="container">
@@ -32,6 +30,7 @@ export const Fields = () => {
                 {savedFields.map((field) => (
                     <li key={field._id}>
                         <div>
+                            {/* <button onClick={() => sellField(field._id)}>Sell Field</button> */}
                             <p>
                                 Field: <span>{field.fieldNumber}</span>
                             </p>
