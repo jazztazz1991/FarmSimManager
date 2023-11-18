@@ -12,10 +12,7 @@ const FieldSchema = new mongoose.Schema({
     herbicide: { type: Boolean, required: true },
     mulched: { type: Boolean, required: true },
     rolled: { type: Boolean, required: true },
-    perLoam: { type: Number, required: true },
-    perSandyLoam: { type: Number, required: true },
-    perLoamySand: { type: Number, required: true },
-    perSiltyClay: { type: Number, required: true }
+    yieldPotential: { type: Number, required: true },
 });
 
 export const FieldModel = mongoose.model("fields", FieldSchema);

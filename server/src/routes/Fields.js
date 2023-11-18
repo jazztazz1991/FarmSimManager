@@ -1,6 +1,8 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import { FieldModel } from '../models/Fields.js';
+import { UserModel } from '../models/Users.js';
+import { verifyToken } from './users.js';
+
 
 const router = express.Router();
 
@@ -13,7 +15,7 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", verifyToken, async (req, res) => {
     const field = new FieldModel(req.body);
 
     try {
@@ -24,7 +26,7 @@ router.post("/", async (req, res) => {
     }
 });
 
-router.put("/", async (req, res) => {
+router.put("/", verifyToken, async (req, res) => {
 
     try {
         const field = await FieldModel.findById(req.body.fieldID);
@@ -38,18 +40,18 @@ router.put("/", async (req, res) => {
     }
 });
 
-router.get("/savedFields/ids", async (req, res) => {
+router.get("/savedFields/ids/:userID", verifyToken, async (req, res) => {
     try {
-        const user = await UserModel.findById(req.body.userID);
+        const user = await UserModel.findById(req.params.userID);
         res.json({ savedFields: user?.savedFields });
     } catch (err) {
         res.json(err)
     }
 });
 
-router.get("/savedFields", async (req, res) => {
+router.get("/savedFields/:userID", verifyToken, async (req, res) => {
     try {
-        const user = await UserModel.findById(req.body.userID);
+        const user = await UserModel.findById(req.params.userID);
         const savedFields = await FieldModel.find({
             _id: { $in: user.savedFields }
         });

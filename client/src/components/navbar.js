@@ -15,10 +15,14 @@ export const Navbar = () => {
     return (
         <div className='navbar'>
             <Link to="/" className='navLink'>Home</Link>
-            <Link to="/farm" className='navLink'>My Farm</Link>
-            <Link to="/fields" className='navLink'>My Fields</Link>
-            {!cookies.access_token ? (<Link to="/auth" className='navLink'>Login/Register</Link>) : (<button onClick={logout}>Logout</button>)}
+            {!cookies.access_token ? (<Link to="/auth" className='navLink'>Login/Register</Link>) : (
+                <>
+                    <Link to="/farm" className='navLink'>My Farm</Link>
+                    <Link to="/fields" className='navLink'>My Fields</Link>
+                    <button onClick={logout}>Logout</button>
+                </>
+            )}
             {/* <Link to="/auth" className='navLink'>Login/Register</Link> */}
-        </div>
+        </div >
     );
 };
