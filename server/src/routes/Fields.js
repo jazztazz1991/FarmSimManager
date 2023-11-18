@@ -1,7 +1,7 @@
 import express from 'express';
 import { FieldModel } from '../models/Fields.js';
 import { UserModel } from '../models/Users.js';
-import { verifyToken } from './users.js';
+import { verifyToken } from './Users.js';
 
 
 const router = express.Router();
@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
         const response = await FieldModel.find({});
         res.json(response);
     } catch (err) {
-        res.json(err)
+        res.json(err);
     }
 });
 
