@@ -47,7 +47,7 @@ export const Home = () => {
 
     return (
         <div className="container">
-            <h2>Fields</h2>
+            <h2>Midwest Horizon Fields</h2>
             <ul>
                 {fields.map((field) => (
                     <li key={field._id}>
