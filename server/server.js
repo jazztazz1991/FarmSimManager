@@ -6,7 +6,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 import { userRouter } from './src/routes/users.js';
-import { fieldsRouter } from './src/routes/Fields.js';
+import { midwestHorizonRouter } from './src/routes/MidwestHorizon.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,7 +19,7 @@ app.use(express.json()); //sets all data given from the front end in the form of
 app.use(cors());
 
 app.use("/auth", userRouter);
-app.use("/fields", fieldsRouter);
+app.use("/midwestHorizon", midwestHorizonRouter);
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../client/build')));

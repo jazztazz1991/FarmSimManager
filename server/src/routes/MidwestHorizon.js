@@ -1,5 +1,5 @@
 import express from 'express';
-import { FieldModel } from '../models/Fields.js';
+import { MidwestHorizonModel } from '../models/MidwestHorizon.js';
 import { UserModel } from '../models/Users.js';
 import { verifyToken } from './users.js';
 
@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
     try {
-        const response = await FieldModel.find({});
+        const response = await MidwestHorizonModel.find({});
         res.json(response);
     } catch (err) {
         res.json(err);
@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", verifyToken, async (req, res) => {
-    const field = new FieldModel(req.body);
+    const field = new MidwestHorizonModel(req.body);
 
     try {
         const response = await field.save();
@@ -29,7 +29,7 @@ router.post("/", verifyToken, async (req, res) => {
 router.put("/", verifyToken, async (req, res) => {
 
     try {
-        const field = await FieldModel.findById(req.body.fieldID);
+        const field = await MidwestHorizonModel.findById(req.body.fieldID);
         const user = await UserModel.findById(req.body.userID);
 
         user.savedFields.push(field);
@@ -49,10 +49,10 @@ router.get("/savedFields/ids/:userID", verifyToken, async (req, res) => {
     }
 });
 
-router.get("/savedFields/:userID", verifyToken, async (req, res) => {
+router.get("/savedFields/:userID", async (req, res) => {
     try {
         const user = await UserModel.findById(req.params.userID);
-        const savedFields = await FieldModel.find({
+        const savedFields = await MidwestHorizonModel.find({
             _id: { $in: user.savedFields }
         });
         res.json({ savedFields });
@@ -61,5 +61,5 @@ router.get("/savedFields/:userID", verifyToken, async (req, res) => {
     }
 });
 
-export { router as fieldsRouter };
+export { router as midwestHorizonRouter };
 

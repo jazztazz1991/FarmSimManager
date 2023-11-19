@@ -40,7 +40,7 @@ export const AddField = () => {
     const onSubmit = async (event) => {
         event.preventDefault();
         try {
-            await axios.post("http://localhost:3001/fields", field, { headers: { authorizations: cookies.access_token } });
+            await axios.post("http://localhost:3001/midwestHorizon", field, { headers: { authorizations: cookies.access_token } });
             alert("Field Added");
             // navigate("/");
         } catch (err) {
