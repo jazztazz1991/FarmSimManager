@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url';
 
 import { userRouter } from './src/routes/users.js';
 import { midwestHorizonRouter } from './src/routes/MidwestHorizon.js';
+import { harvestModel } from './src/routes/Harvest.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -20,6 +21,7 @@ app.use(cors());
 
 app.use("/auth", userRouter);
 app.use("/midwestHorizon", midwestHorizonRouter);
+app.use("/harvest", harvestModel);
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../client/build')));
