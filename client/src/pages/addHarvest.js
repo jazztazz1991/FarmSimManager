@@ -74,7 +74,7 @@ export const AddHarvest = () => {
     const handleChange = async (event) => {
         const { name, value } = event.target;
         if (name === "fieldNumber") {
-            const response = await axios.get(`http://localhost:3001/midwestHorizon/${value}`);
+            const response = await axios.get(`/midwestHorizon/${value}`);
             const fieldAcres = response.data.acres;
             setHarvest({ ...harvest, fieldNumber: value, acres: fieldAcres })
 
@@ -106,7 +106,7 @@ export const AddHarvest = () => {
             soldAsSeed: soldAsSeed
         })
         try {
-            const response = await axios.post("http://localhost:3001/harvest/harvests", { userID, harvest }, { headers: { authorizations: cookies.access_token } });
+            const response = await axios.post("/harvest/harvests", { userID, harvest }, { headers: { authorizations: cookies.access_token } });
             alert("Field Added");
         } catch (err) {
             console.error(err);

@@ -13,7 +13,7 @@ export const Home = () => {
     useEffect(() => {
         const fetchFields = async () => {
             try {
-                const response = await axios.get("http://localhost:3001/midwestHorizon");
+                const response = await axios.get("/midwestHorizon");
                 setFields(response.data);
                 console.log(response.data);
             } catch (err) {
@@ -22,7 +22,7 @@ export const Home = () => {
         };
         const fetchSavedFields = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/midwestHorizon/savedFields/ids/${userID}`, { headers: { authorizations: cookies.access_token } });
+                const response = await axios.get(`/midwestHorizon/savedFields/ids/${userID}`, { headers: { authorizations: cookies.access_token } });
                 setSavedFields(response.data.savedFields);
                 console.log(response.data.savedFields);
             } catch (err) {
@@ -36,7 +36,7 @@ export const Home = () => {
 
     const saveField = async (fieldID) => {
         try {
-            const response = await axios.put("http://localhost:3001/midwestHorizon", { fieldID, userID }, { headers: { authorizations: cookies.access_token } });
+            const response = await axios.put("/midwestHorizon", { fieldID, userID }, { headers: { authorizations: cookies.access_token } });
             setSavedFields(response.data.savedFields);
         } catch (err) {
             console.error(err)
