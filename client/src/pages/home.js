@@ -15,7 +15,6 @@ export const Home = () => {
             try {
                 const response = await axios.get("/midwestHorizon");
                 setFields(response.data);
-                console.log(response.data);
             } catch (err) {
                 console.error(err)
             }
@@ -24,7 +23,6 @@ export const Home = () => {
             try {
                 const response = await axios.get(`/midwestHorizon/savedFields/ids/${userID}`, { headers: { authorizations: cookies.access_token } });
                 setSavedFields(response.data.savedFields);
-                console.log(response.data.savedFields);
             } catch (err) {
                 console.error(err)
             }

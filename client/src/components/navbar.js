@@ -17,7 +17,6 @@ export const Navbar = () => {
 
     const fetchLastSavedDate = async () => {
         try {
-            console.log("function ran")
             const response = await axios.get("/site");
             const siteInfo = response.data;
             let year = siteInfo.year;
