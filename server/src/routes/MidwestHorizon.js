@@ -26,7 +26,7 @@ router.get("/:fieldNumber", async (req, res) => {
     }
 });
 
-router.post("/", verifyToken, async (req, res) => {
+router.post("/", async (req, res) => {
     const field = new MidwestHorizonModel(req.body);
 
     try {
@@ -37,7 +37,7 @@ router.post("/", verifyToken, async (req, res) => {
     }
 });
 
-router.put("/", verifyToken, async (req, res) => {
+router.put("/", async (req, res) => {
 
     try {
         const field = await MidwestHorizonModel.findById(req.body.fieldID);
@@ -51,7 +51,7 @@ router.put("/", verifyToken, async (req, res) => {
     }
 });
 
-router.get("/savedFields/ids/:userID", verifyToken, async (req, res) => {
+router.get("/savedFields/ids/:userID", async (req, res) => {
     try {
         const user = await UserModel.findById(req.params.userID);
         res.json({ savedFields: user?.savedFields });
