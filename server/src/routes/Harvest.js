@@ -30,37 +30,37 @@ router.post("/", async (req, res) => {
     }
 });
 
-router.post("/harvests/:userID", async (req, res) => {
-    const user = await UserModel.findById(req.params.userID);
-    const userID = req.params.userID;
-    const harvestYear = req.body.harvestYear
-    const fieldNumber = req.body.fieldNumber
-    const field = req.body;
-    // const field = new HarvestModel(req.body);
-
+router.post("/harvests", async (req, res) => {
+    console.log("harvest post is running")
+    const user = await UserModel.findById(req.body.userID);
+    const userID = req.body.userID;
+    const harvestYear = req.body.harvest.harvestYear;
+    const fieldNumber = req.body.harvest.fieldNumber;
+    const field = req.body.harvest;
     try {
         const harvestDoc = await HarvestModel.findOne({
-            user: userID,
-            year: harvestYear
+            user: userID
         });
-        const harvestExist = harvestDoc.harvests.find(
-            (harvest => harvest.fieldNUmber === fieldNumber)
-        );
-        if (harvestExist) {
-            // Update existing harvest
-            harvestExist.cropType = field.cropType; // Replace with desired crop type
-            harvestExist.plowed = field.plowed;
-            harvestExist.cultivated = field.cultivated;
-            harvestExist.limed = field.limed;
-            harvestExist.fertilized = field.fertilized;
-            harvestExist.herbicide = field.herbicide;
-            harvestExist.mulched = field.mulched;
-            harvestExist.rolled = field.rolled;
-            harvestExist.yield = field.yield;
-            harvestExist.yieldPerAcre = field.yieldPerAcre;
-            harvestExist.soldAsCrop = field.soldAsCrop;
-            harvestExist.soldAsSeed = field.soldAsSeed;
-        } else {
+        console.log(harvestDoc)
+        if (harvestDoc) {
+            // const harvestIndex = harvestDoc.harvests.findIndex((harvest) => parseInt(harvest.fieldNumber) === parseInt(fieldNumber));
+            // const harvestExist = harvestIndex !== -1 ? harvestDoc.harvests[harvestIndex] : null;
+
+            // if (harvestExist) {
+            //     // Update existing harvest
+            //     harvestExist.cropType = field.cropType; // Replace with desired crop type
+            //     harvestExist.plowed = field.plowed;
+            //     harvestExist.cultivated = field.cultivated;
+            //     harvestExist.limed = field.limed;
+            //     harvestExist.fertilized = field.fertilized;
+            //     harvestExist.herbicide = field.herbicide;
+            //     harvestExist.mulched = field.mulched;
+            //     harvestExist.rolled = field.rolled;
+            //     harvestExist.yield = field.yield;
+            //     harvestExist.yieldPerAcre = field.yieldPerAcre;
+            //     harvestExist.soldAsCrop = field.soldAsCrop;
+            //     harvestExist.soldAsSeed = field.soldAsSeed;
+            // } else {
             // Add new harvest
             harvestDoc.harvests.push({
                 fieldNumber: fieldNumber,
@@ -76,14 +76,19 @@ router.post("/harvests/:userID", async (req, res) => {
                 yieldPerAcre: field.yieldPerAcre,
                 soldAsCrop: field.soldAsCrop,
                 soldAsSeed: field.soldAsSeed,
+                harvestYear: harvestYear, // Add harvestYear
             });
+            // }
+
+            await harvestDoc.save();
+            res.json(harvestDoc);
+        } else {
+            res.status(404).json({ message: 'Harvest document not found' });
         }
-        await harvestDoc.save();
-        res.json(harvestDoc);
     } catch (err) {
-        res.json(err)
+        res.json(err);
     }
 });
 
 
-export { router as harvestModel };
+export { router as harvestRouter };

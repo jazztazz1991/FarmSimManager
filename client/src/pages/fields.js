@@ -15,9 +15,7 @@ export const Fields = () => {
         const fetchSavedFields = async () => {
             try {
                 const response = await axios.get(`http://localhost:3001/midwestHorizon/savedFields/${userID}`, { headers: { authorizations: cookies.access_token } });
-                console.log(response.data.savedFields);
                 setSavedFields(response.data.savedFields);
-                console.log(savedFields);
             } catch (err) {
                 console.error(err)
             }

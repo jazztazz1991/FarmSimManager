@@ -15,6 +15,17 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.get("/:fieldNumber", async (req, res) => {
+    try {
+        const response = await MidwestHorizonModel.findOne({
+            fieldNumber: req.params.fieldNumber
+        });
+        res.json(response);
+    } catch (err) {
+        res.json(err);
+    }
+});
+
 router.post("/", verifyToken, async (req, res) => {
     const field = new MidwestHorizonModel(req.body);
 

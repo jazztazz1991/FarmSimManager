@@ -2,8 +2,8 @@ import mongoose from 'mongoose';
 
 const HarvestSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'users', required: true },
-    year: { type: Number, required: true },
     harvests: [{
+        harvestYear: { type: Number, required: true },
         fieldNumber: { type: Number, required: true },
         cropType: { type: String, required: true },
         plowed: { type: Boolean, required: true },

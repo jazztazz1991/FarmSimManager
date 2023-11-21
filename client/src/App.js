@@ -4,6 +4,7 @@ import { Home } from './pages/home.js';
 import { Fields } from './pages/fields.js';
 import { Farm } from './pages/farm.js';
 import { Auth } from './pages/auth.js';
+import { AddHarvest } from './pages/addHarvest.js';
 import { AddField } from './pages/addField.js';
 import { Navbar } from './components/navbar.js';
 
@@ -17,6 +18,7 @@ function App() {
           <Route path="/auth" element={<Auth />} />
           <Route path="/fields" element={<Fields />} />
           <Route path="/farm" element={<Farm />} />
+          <Route path="/addHarvest" element={<AddHarvest />} />
           <Route path="/addField" element={<AddField />} />
         </Routes>
       </Router>
