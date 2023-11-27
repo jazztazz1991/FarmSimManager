@@ -31,17 +31,15 @@ router.post("/", async (req, res) => {
 });
 
 router.post("/harvests", async (req, res) => {
-    console.log("harvest post is running")
     const user = await UserModel.findById(req.body.userID);
     const userID = req.body.userID;
-    const harvestYear = req.body.harvest.harvestYear;
-    const fieldNumber = req.body.harvest.fieldNumber;
-    const field = req.body.harvest;
+    const harvestYear = parseInt(req.body.addHarvest.harvestYear);
+    const fieldNumber = req.body.addHarvest.fieldNumber;
+    const field = req.body;
     try {
         const harvestDoc = await HarvestModel.findOne({
             user: userID
         });
-        console.log(harvestDoc)
         if (harvestDoc) {
             // const harvestIndex = harvestDoc.harvests.findIndex((harvest) => parseInt(harvest.fieldNumber) === parseInt(fieldNumber));
             // const harvestExist = harvestIndex !== -1 ? harvestDoc.harvests[harvestIndex] : null;
@@ -64,18 +62,18 @@ router.post("/harvests", async (req, res) => {
             // Add new harvest
             harvestDoc.harvests.push({
                 fieldNumber: fieldNumber,
-                cropType: field.cropType, // Replace with desired crop type
-                plowed: field.plowed,
-                cultivated: field.cultivated,
-                limed: field.limed,
-                fertilized: field.fertilized,
-                herbicide: field.herbicide,
-                mulched: field.mulched,
-                rolled: field.rolled,
-                yield: field.yield,
-                yieldPerAcre: field.yieldPerAcre,
-                soldAsCrop: field.soldAsCrop,
-                soldAsSeed: field.soldAsSeed,
+                cropType: field.addHarvest.cropType, // Replace with desired crop type
+                plowed: field.addHarvest.plowed,
+                cultivated: field.addHarvest.cultivated,
+                limed: field.addHarvest.limed,
+                fertilized: field.addHarvest.fertilized,
+                herbicide: field.addHarvest.herbicide,
+                mulched: field.addHarvest.mulched,
+                rolled: field.addHarvest.rolled,
+                yield: field.addHarvest.yield,
+                yieldPerAcre: field.addHarvest.yieldPerAcre,
+                soldAsCrop: field.addHarvest.soldAsCrop,
+                soldAsSeed: field.addHarvest.soldAsSeed,
                 harvestYear: harvestYear, // Add harvestYear
             });
             // }

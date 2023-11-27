@@ -12,19 +12,6 @@ export const AddHarvest = () => {
     const [savedFields, setSavedFields] = useState([]);
     const [acres, setAcres] = useState();
 
-
-    // useEffect(() => {
-    //     const fetchSavedFields = async () => {
-    //         try {
-    //             const response = await axios.get("http://localhost:3001/midwestHorizon");
-    //             setSavedFields(response.data.savedFields);
-    //         } catch (err) {
-    //             console.error(err)
-    //         }
-    //     };
-    //     fetchSavedFields();
-    // }, []);
-
     const [harvest, setHarvest] = useState({
         userOwner: userID,
         harvestYear: 0,
@@ -51,22 +38,35 @@ export const AddHarvest = () => {
         Wheat: 450,
         Barley: 385,
         Canola: 750,
-        Oats: 650,
+        Oat: 650,
         Sorghum: 535,
         Corn: 525,
         Cotton: 1425,
+        Potatoes: 209,
+        SugarBeet: 150,
+        Sugarcane: 126,
+        Grapes: 733,
+        Olives: 726,
+        Fallow: 0
 
     }
 
     const seedRate = {
         Soybeans: 3.954,
-        Sunflower: 3.422,
+        Sunflowers: 3.422,
         Wheat: 2,
         Barley: 1.854,
         Canola: 3.069,
-        Oats: 3.121,
+        Oat: 3.121,
         Sorghum: 4.024,
-        Corn: 1.934
+        Corn: 1.934,
+        Cotton: 0,
+        grapes: 0,
+        olives: 0,
+        fallow: 0,
+        Potatoes: 0,
+        SugarBeet: 0,
+        Sugarcane: 0,
 
     }
 
@@ -76,22 +76,14 @@ export const AddHarvest = () => {
         if (name === "fieldNumber") {
             const response = await axios.get(`/midwestHorizon/${value}`);
             const fieldAcres = response.data.acres;
-            setHarvest({ ...harvest, fieldNumber: value, acres: fieldAcres })
+            setHarvest({ ...harvest, fieldNumber: parseInt(value), acres: parseFloat(fieldAcres) })
 
         } else {
             setHarvest({ ...harvest, [name]: value });
         }
-        if (name === "cropType") {
-            let cropName = value;
-            const price = salePrice[cropName];
-
-            console.log(cropName)
-            console.log(price)
-        }
     }
 
-    const onSubmit = async (event) => {
-        event.preventDefault();
+    const calculateInfo = () => {
         const price = salePrice[harvest.cropType];
         let yieldPerAcre = harvest.yield / harvest.acres;
         let soldAsCrop = (harvest.yield / 1000) * price;
@@ -105,8 +97,32 @@ export const AddHarvest = () => {
             soldAsCrop: soldAsCrop,
             soldAsSeed: soldAsSeed
         })
+        const tempHarvest = {
+            userOwner: userID,
+            harvestYear: harvest.harvestYear,
+            fieldNumber: harvest.fieldNumber,
+            acres: harvest.acres,
+            cropType: harvest.cropType,
+            plowed: harvest.plowed,
+            cultivated: harvest.cultivated,
+            limed: harvest.limed,
+            fertilized: harvest.fertilized,
+            herbicide: harvest.herbicide,
+            mulched: harvest.mulched,
+            rolled: harvest.rolled,
+            yield: harvest.yield,
+            yieldPerAcre: yieldPerAcre,
+            soldAsCrop: soldAsCrop,
+            soldAsSeed: soldAsSeed
+        }
+
+        return tempHarvest;
+    }
+    const onSubmit = async (event) => {
+        event.preventDefault();
         try {
-            const response = await axios.post("/harvest/harvests", { userID, harvest }, { headers: { authorizations: cookies.access_token } });
+            const addHarvest = calculateInfo();
+            const response = await axios.post("/harvest/harvests", { userID, addHarvest });
             alert("Field Added");
         } catch (err) {
             console.error(err);
@@ -117,11 +133,11 @@ export const AddHarvest = () => {
             <h2>Add Harvest</h2>
             <form onSubmit={onSubmit}>
                 <span className="formField">
-                    <label htmlFor="harvestYear">Year (your first year should be 1)</label>
+                    <label htmlFor="harvestYear">Year: </label>
                     <input type="number" id="harvestYear" name="harvestYear" onChange={handleChange} />
                 </span>
                 <span className="formField">
-                    <label htmlFor="fieldNumber">Field Number</label>
+                    <label htmlFor="fieldNumber">Field Number: </label>
                     <input type="number" id="fieldNumber" name="fieldNumber" onChange={handleChange} />
                 </span>
                 <span className="formField">
@@ -150,38 +166,38 @@ export const AddHarvest = () => {
                     </label>
                 </span>
                 <span className="formField">
-                    <label htmlFor="plowed">Plowed</label>
+                    <label htmlFor="plowed">Plowed: </label>
                     <input type="checkbox" id="plowed" name="plowed" value="true" onChange={handleChange} />
                 </span>
                 <span className="formField">
-                    <label htmlFor="cultivated">Cultivated</label>
+                    <label htmlFor="cultivated">Cultivated: </label>
                     <input type="checkbox" id="cultivated" name="cultivated" value="true" onChange={handleChange} />
                 </span>
                 <span className="formField">
-                    <label htmlFor="limed">Limed</label>
+                    <label htmlFor="limed">Limed: </label>
                     <input type="checkbox" id="limed" name="limed" value="true" onChange={handleChange} />
                 </span>
                 <span className="formField">
-                    <label htmlFor="fertilized">Fertilized</label>
+                    <label htmlFor="fertilized">Fertilized: </label>
                     <input type="checkbox" id="fertilized" name="fertilized" value="true" onChange={handleChange} />
                 </span>
                 <span className="formField">
-                    <label htmlFor="weeded">Weeded</label>
+                    <label htmlFor="weeded">Weeded: </label>
                     <input type="checkbox" id="weeded" name="herbicide" value="true" onChange={handleChange} />
                 </span>
                 <span className="formField">
-                    <label htmlFor="mulched">Mulched</label>
+                    <label htmlFor="mulched">Mulched: </label>
                     <input type="checkbox" id="mulched" name="mulched" value="true" onChange={handleChange} />
                 </span>
                 <span className="formField">
-                    <label htmlFor="rolled">Rolled</label>
+                    <label htmlFor="rolled">Rolled: </label>
                     <input type="checkbox" id="rolled" name="rolled" value="true" onChange={handleChange} />
                 </span>
                 <span className="formField">
-                    <label htmlFor="yield">Yield</label>
+                    <label htmlFor="yield">Yield: </label>
                     <input type="number" id="yield" name="yield" onChange={handleChange} />
                 </span>
-                <button type="submit">Add Field</button>
+                <button type="submit">Add Field: </button>
             </form>
         </div>
     );

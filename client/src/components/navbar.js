@@ -11,62 +11,74 @@ export const Navbar = () => {
     const [counter, setCounter] = useState();
     const [year, setYear] = useState();
     const [monthCounter, setMonthCounter] = useState();
+    const [month, setMonth] = useState();
     const [day, setDay] = useState();
     const navigate = useNavigate();
-    let month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][monthCounter - 1];
-
-    const fetchLastSavedDate = async () => {
-        try {
-            const response = await axios.get("/site");
-            const siteInfo = response.data;
-            let year = siteInfo.year;
-            let monthCounter = siteInfo.monthCounter;
-            let day = siteInfo.day;
-            const lastSavedDate = siteInfo ? new Date(siteInfo.date) : null;
-            setLastSavedDate(lastSavedDate);
-            setYear(year);
-            setMonthCounter(monthCounter);
-            setDay(day);
-            if (lastSavedDate) {
-                const hoursPassed = Math.floor((new Date() - lastSavedDate) / 3600000);
-                setCounter(Math.floor(hoursPassed / 24));
-                if (counter >= 1) {
-                    // Update day, monthCounter, and year based on counter
-                    let newDay = day + counter;
-                    let newMonthCounter = monthCounter;
-                    let newYear = year;
-
-                    if (newDay > 2) {
-                        let tempDay = counter % 2;
-                        newMonthCounter += Math.floor(counter / 2);
-                        if (tempDay === 0) {
-                            newDay = 1;
-                        } else if (tempDay === 1) {
-                            newDay = 2;
-                        }
-                        if (newMonthCounter > 12) {
-                            let tempMonth = newMonthCounter % 12;
-                            newYear += Math.floor(newMonthCounter / 12);
-                            if (tempMonth === 0) {
-                                newMonthCounter = 12;
-                            } else {
-                                newMonthCounter = tempMonth
-                            }
-
-                        }
-                    }
-                    setDay(newDay); // Update day state
-                    setMonthCounter(newMonthCounter); // Update monthCounter state
-                    setYear(newYear); // Update year state
-
-                }
-            }
-        } catch (err) {
-            console.log(err);
-        }
-    };
+    // let month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][monthCounter - 1];
 
     useEffect(() => {
+        const fetchLastSavedDate = async () => {
+            try {
+                const response = await axios.get("/site/");
+                const siteInfo = response.data;
+                let year = siteInfo.year;
+                let monthCounter = siteInfo.monthCounter;
+                let day = siteInfo.day;
+                const lastSavedDate = siteInfo ? new Date(siteInfo.date) : null;
+                setLastSavedDate(lastSavedDate);
+                if (lastSavedDate) {
+                    const hoursPassed = Math.floor((new Date() - lastSavedDate) / 3600000);
+                    const counter = Math.floor(hoursPassed / 24);
+                    setCounter(counter);
+                    if (counter >= 1) {
+                        // Update day, monthCounter, and year based on counter
+                        let newDay = day + Math.floor(hoursPassed / 24);
+                        let newMonthCounter = monthCounter;
+                        let newYear = year;
+                        day = newDay;
+
+                        if (newDay > 2) {
+                            let tempDay = counter % 2;
+                            newMonthCounter += Math.floor(counter / 2);
+                            monthCounter = newMonthCounter;
+                            if (tempDay === 0) {
+                                newDay = 1;
+                                day = newDay;
+                            } else if (tempDay === 1) {
+                                newDay = 2;
+                                day = newDay;
+                            }
+                            if (newMonthCounter > 12) {
+                                let tempMonth = newMonthCounter % 12;
+                                newYear += Math.floor(newMonthCounter / 12);
+                                year = newYear
+                                if (tempMonth === 0) {
+                                    newMonthCounter = 12;
+                                    monthCounter = newMonthCounter;
+                                } else {
+                                    newMonthCounter = tempMonth
+                                    monthCounter = newMonthCounter;
+                                }
+
+                            }
+                        }
+                        setDay(newDay); // Update day state
+                        setMonthCounter(newMonthCounter); // Update monthCounter state
+                        setYear(newYear); // Update year state
+
+                    }
+                    let month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][monthCounter - 1];
+                    setMonth(month);
+                    setDay(day); // Update day state
+                    setMonthCounter(monthCounter); // Update monthCounter state
+                    setYear(year); // Update year state
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        };
+
+        // useEffect(() => {
         // Run function on load
         fetchLastSavedDate();
 
