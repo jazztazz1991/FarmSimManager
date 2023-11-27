@@ -16,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="*" element={<Auth />} />
           <Route path="/fields" element={<Fields />} />
           <Route path="/farm" element={<Farm />} />
           <Route path="/addHarvest" element={<AddHarvest />} />

@@ -17,6 +17,11 @@ export const Navbar = () => {
     // let month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][monthCounter - 1];
 
     useEffect(() => {
+        console.log(cookies.access_token);
+        if (cookies.access_token == "") {
+            console.log("if running")
+            navigate("/auth")
+        }
         const fetchLastSavedDate = async () => {
             try {
                 const response = await axios.get("/site/");
@@ -102,9 +107,9 @@ export const Navbar = () => {
 
     return (
         <div className='navbar'>
-            <Link to="/" className='navLink'>Home</Link>
             {!cookies.access_token ? (<Link to="/auth" className='navLink'>Login/Register</Link>) : (
                 <>
+                    <Link to="/" className='navLink'>Home</Link>
                     <Link to="/farm" className='navLink'>My Farm</Link>
                     <Link to="/fields" className='navLink'>My Fields</Link>
                     <Link to="/addHarvest" className='navLink'>Add Harvest</Link>
