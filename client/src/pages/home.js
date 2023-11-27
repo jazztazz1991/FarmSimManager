@@ -13,7 +13,7 @@ export const Home = () => {
     useEffect(() => {
         const fetchFields = async () => {
             try {
-                const response = await axios.get("/midwestHorizon");
+                const response = await axios.get("/midwestHorizon", { headers: { authorizations: cookies.access_token } });
                 setFields(response.data);
             } catch (err) {
                 console.error(err)

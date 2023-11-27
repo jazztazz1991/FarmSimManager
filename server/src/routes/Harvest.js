@@ -6,7 +6,7 @@ import { verifyToken } from './users.js';
 
 const router = express.Router();
 
-router.get("/:userID", async (req, res) => {
+router.get("/:userID", verifyToken, async (req, res) => {
     try {
         const user = await UserModel.findById(req.params.userID);
         const harvests = await HarvestModel.find({
@@ -19,7 +19,7 @@ router.get("/:userID", async (req, res) => {
     }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", verifyToken, async (req, res) => {
     const field = new HarvestModel(req.body);
 
     try {
@@ -30,7 +30,7 @@ router.post("/", async (req, res) => {
     }
 });
 
-router.post("/harvests", async (req, res) => {
+router.post("/harvests", verifyToken, async (req, res) => {
     const user = await UserModel.findById(req.body.userID);
     const userID = req.body.userID;
     const harvestYear = parseInt(req.body.addHarvest.harvestYear);

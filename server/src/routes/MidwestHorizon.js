@@ -51,7 +51,7 @@ router.put("/", async (req, res) => {
     }
 });
 
-router.get("/savedFields/ids/:userID", async (req, res) => {
+router.get("/savedFields/ids/:userID", verifyToken, async (req, res) => {
     try {
         const user = await UserModel.findById(req.params.userID);
         res.json({ savedFields: user?.savedFields });
@@ -60,7 +60,7 @@ router.get("/savedFields/ids/:userID", async (req, res) => {
     }
 });
 
-router.get("/savedFields/:userID", async (req, res) => {
+router.get("/savedFields/:userID", verifyToken, async (req, res) => {
     try {
         const user = await UserModel.findById(req.params.userID);
         const savedFields = await MidwestHorizonModel.find({
