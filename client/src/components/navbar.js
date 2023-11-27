@@ -24,7 +24,7 @@ export const Navbar = () => {
         }
         const fetchLastSavedDate = async () => {
             try {
-                const response = await axios.get("http://localhost:3001/site/");
+                const response = await axios.get("/site/");
                 const siteInfo = response.data;
                 let year = siteInfo.year;
                 let monthCounter = siteInfo.monthCounter;
