@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import instance from '../hooks/API';
 
 import { useGetUserID } from "../hooks/useGetUserID";
 import { useCookies } from 'react-cookie';
@@ -14,7 +15,7 @@ export const Fields = () => {
     useEffect(() => {
         const fetchSavedFields = async () => {
             try {
-                const response = await axios.get(`/midwestHorizon/savedFields/${userID}`, { headers: { authorizations: cookies.access_token } });
+                const response = await instance.get(`/midwestHorizon/savedFields/${userID}`, { headers: { authorizations: cookies.access_token } });
                 setSavedFields(response.data.savedFields);
             } catch (err) {
                 console.error(err)

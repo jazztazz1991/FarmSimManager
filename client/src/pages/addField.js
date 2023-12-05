@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import instance from '../hooks/API';
 
 
 import { useGetUserID } from '../hooks/useGetUserID';
@@ -40,7 +41,7 @@ export const AddField = () => {
     const onSubmit = async (event) => {
         event.preventDefault();
         try {
-            await axios.post("/midwestHorizon", field, { headers: { authorizations: cookies.access_token } });
+            await instance.post("/midwestHorizon", field, { headers: { authorizations: cookies.access_token } });
             alert("Field Added");
             // navigate("/");
         } catch (err) {

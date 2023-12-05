@@ -3,6 +3,7 @@ import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import instance from '../hooks/API';
 
 export const Navbar = () => {
     const [cookies, setCookies] = useCookies(["access_token"]);
@@ -24,7 +25,7 @@ export const Navbar = () => {
         }
         const fetchLastSavedDate = async () => {
             try {
-                const response = await axios.get("/site/");
+                const response = await instance.get("/site/");
                 const siteInfo = response.data;
                 let year = siteInfo.year;
                 let monthCounter = siteInfo.monthCounter;

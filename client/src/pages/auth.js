@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import instance from '../hooks/API';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 
@@ -24,7 +25,7 @@ const Login = () => {
         event.preventDefault();
 
         try {
-            const response = await axios.post("/auth/login", { username, password });
+            const response = await instance.post("/auth/login", { username, password });
 
             setCookies("access_token", response.data.token);
             window.localStorage.setItem("userID", response.data.userID);
@@ -50,7 +51,7 @@ const Register = () => {
     const onSubmit = async (event) => {
         event.preventDefault();
         try {
-            await axios.post("/auth/register", { username, password });
+            await instance.post("/auth/register", { username, password });
             alert("Registration Successful");
         } catch (err) {
             console.log(err);

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useCookies } from 'react-cookie';
+import instance from '../hooks/API';
 
 import { useGetUserID } from "../hooks/useGetUserID";
 
@@ -13,7 +14,7 @@ export const Home = () => {
     useEffect(() => {
         const fetchFields = async () => {
             try {
-                const response = await axios.get("/midwestHorizon", { headers: { authorizations: cookies.access_token } });
+                const response = await instance.get("/midwestHorizon", { headers: { authorizations: cookies.access_token } });
                 setFields(response.data);
             } catch (err) {
                 console.error(err)
@@ -21,7 +22,7 @@ export const Home = () => {
         };
         const fetchSavedFields = async () => {
             try {
-                const response = await axios.get(`/midwestHorizon/savedFields/ids/${userID}`, { headers: { authorizations: cookies.access_token } });
+                const response = await instance.get(`/midwestHorizon/savedFields/ids/${userID}`, { headers: { authorizations: cookies.access_token } });
                 setSavedFields(response.data.savedFields);
             } catch (err) {
                 console.error(err)
@@ -34,7 +35,7 @@ export const Home = () => {
 
     const saveField = async (fieldID) => {
         try {
-            const response = await axios.put("/midwestHorizon", { fieldID, userID }, { headers: { authorizations: cookies.access_token } });
+            const response = await instance.put("/midwestHorizon", { fieldID, userID }, { headers: { authorizations: cookies.access_token } });
             setSavedFields(response.data.savedFields);
         } catch (err) {
             console.error(err)

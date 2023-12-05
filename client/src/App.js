@@ -2,7 +2,7 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Home } from './pages/home.js';
 import { Fields } from './pages/fields.js';
-import { Farm } from './pages/farm.js';
+import { Year } from './pages/year.js';
 import { Auth } from './pages/auth.js';
 import { AddHarvest } from './pages/addHarvest.js';
 import { AddField } from './pages/addField.js';
@@ -18,7 +18,7 @@ function App() {
           <Route path="/auth" element={<Auth />} />
           <Route path="*" element={<Auth />} />
           <Route path="/fields" element={<Fields />} />
-          <Route path="/farm" element={<Farm />} />
+          <Route path="/year" element={<Year />} />
           <Route path="/addHarvest" element={<AddHarvest />} />
           <Route path="/addField" element={<AddField />} />
         </Routes>
