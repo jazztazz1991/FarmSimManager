@@ -19,6 +19,21 @@ router.get("/:userID", verifyToken, async (req, res) => {
     }
 });
 
+router.get("/year/:userID", async (req, res) => {
+    try {
+        console.log(req.body)
+        const user = await UserModel.findById(req.params.userID);
+        const harvests = await HarvestModel.find({
+            user: user._id,
+            harvestYear: req.body.year
+        })
+        res.json({ harvests });
+
+    } catch (err) {
+        res.json(err);
+    }
+});
+
 router.post("/", verifyToken, async (req, res) => {
     const field = new HarvestModel(req.body);
 

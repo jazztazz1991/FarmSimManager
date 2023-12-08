@@ -35,7 +35,7 @@ export const AddField = () => {
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        setField({ ...field, [name]: value })
+        setField({ ...field, [name]: value });
     }
 
     const onSubmit = async (event) => {
@@ -45,7 +45,7 @@ export const AddField = () => {
             alert("Field Added");
             // navigate("/");
         } catch (err) {
-            console.error(err)
+            console.error(err);
         }
     }
     return (
