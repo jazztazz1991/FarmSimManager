@@ -1,6 +1,3 @@
-
-Sure, here is a README for GitHub for a project called FarmSimManager:
-
 FarmSimManager
 FarmSimManager is an application created using the MERN stack to help keep track of your farm on Farming Simulator 22 for the map Midwest Horizon.
 
